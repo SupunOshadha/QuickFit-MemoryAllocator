@@ -12,21 +12,25 @@ public class MiniProject_EEX5563{
         // Input memory blocks
         System.out.print("Enter the number of memory blocks: ");
         int numBlocks = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine(); // newline
 
         for (int i = 0; i < numBlocks; i++) {
             System.out.print("Enter size of block " + (i + 1) + " (in KB): ");
             int size = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); //  newline
             System.out.print("Enter block ID for block " + (i + 1) + ": ");
             String blockId = scanner.nextLine();
             allocator.addMemoryBlock(size, blockId);
         }
-
+        
+        // Display initial memory state
+        System.out.println("\nInitial Memory State:");
+        allocator.displayMemoryState();
+        
         // Input processes
         System.out.print("\nEnter the number of processes: ");
         int numProcesses = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine(); //  newline
 
         List<Process> processes = new ArrayList<>();
         for (int i = 0; i < numProcesses; i++) {
@@ -34,18 +38,28 @@ public class MiniProject_EEX5563{
             String processId = scanner.nextLine();
             System.out.print("Enter size of process " + (i + 1) + " (in KB): ");
             int size = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); //  newline
             processes.add(new Process(processId, size));
         }
 
         // Allocate memory to processes
+        System.out.println("--------------------------------");
+        System.out.println("\nAllocating memory to proceses:");
         for (Process process : processes) {
             allocator.allocateMemory(process);
         }
 
         // Display final memory state
+        System.out.println("\nFinal Memory State:");
         allocator.displayMemoryState();
-
+        
+         // Display free and allocated blocks separately
+        System.out.println("\nFree Memory Blocks:");
+        allocator.displayFreeBlocks();
+        
+        System.out.println("\nAllocated Memory Blocks:");
+        allocator.displayAllocatedBlocks();
+        
         scanner.close();
     }
 }
